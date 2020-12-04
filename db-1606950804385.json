@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "luiz",
+      "password": "123",
+      "balance": 0,
+      "enabled": true
+    }
+  ],
+  "records": [
+    {
+      "id": 1,
+      "person": "luiz",
+      "remarks": "decrição",
+      "value": 0,
+      "fk_user": 1,
+      "kind": true,
+      "registredAt": "1:30 2/12/2020"
+    },
+    {
+      "person": "camila",
+      "remarks": "decrição",
+      "value": 0,
+      "fk_user": 1,
+      "kind": true,
+      "registredAt": "1:30 2/12/2020",
+      "id": 2
+    }
+  ]
+}
