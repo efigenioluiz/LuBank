@@ -12,8 +12,8 @@ interface RecordService {
     fun getAll(@Query("fk_user") fk_user: Long): Call<List<Record>>
 
 
-    @GET("/records/{fk_user}&{person}")
-    fun getRecord(@Path("fk_user") fk_user: Long, @Path("person") person : String): Call<List<Record>>
+    @GET("records?")
+    fun getRecord(@Query("fk_user") fk_user: Long, @Query("person") person : String): Call<List<Record>>
 
     @POST("records")
     @Headers("Content-Type: application/json")
