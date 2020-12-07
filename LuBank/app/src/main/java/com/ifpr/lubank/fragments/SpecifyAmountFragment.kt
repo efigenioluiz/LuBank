@@ -91,7 +91,7 @@ class SpecifyAmountFragment : Fragment() {
                         name,
                         "",
                         value,
-                        Util.user.id,
+                        it,
                         true
                     )
                 }
@@ -130,7 +130,7 @@ class SpecifyAmountFragment : Fragment() {
                         name,
                         "",
                         value,
-                        Util.user.id,
+                        it,
                         false
                     )
                 }
