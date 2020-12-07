@@ -8,7 +8,7 @@
       "enabled": true
     },
     {
-      "balance": 0,
+      "balance": 100,
       "enabled": true,
       "password": "123",
       "username": "camila",
@@ -94,6 +94,15 @@
       "remarks": "",
       "value": 100,
       "id": 8
+    },
+    {
+      "fk_user": 1,
+      "kind": true,
+      "person": "camila",
+      "registredAt": "06/12/2020 23:56",
+      "remarks": "",
+      "value": 100,
+      "id": 9
     }
   ]
 }
