@@ -1,7 +1,5 @@
 package com.ifpr.lubank.dao
 
-import android.util.Log
-import com.ifpr.lubank.models.Record
 import com.ifpr.lubank.models.User
 import com.ifpr.lubank.network.services.UserService
 import retrofit2.Call
@@ -11,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class UserDAO {
-    val url = "http://10.0.2.2:3000/"
+    val url = "http://192.168.0.108:3000/"
     val retrofit = Retrofit.Builder()
         .baseUrl(url).addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -22,8 +20,8 @@ class UserDAO {
 
         service.getAll().enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                val users = response.body()!!
 
+                val users = response.body()!!
                 finished(users)
             }
 
@@ -35,23 +33,54 @@ class UserDAO {
         })
     }
 
-    fun login(usr: String, psw: String, finished: (users: User) -> Unit) {
-        service.login(usr, psw).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                val user = response.body()!!
-                Log.i("hhh", user.username)
-                Log.i("hhh", user.password)
+    fun login(username: String,password: String, finished: (User) -> Unit) {
+        service.login(username,password).enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if(response.body() != null){
 
-                finished(user)
+                    if(response.body()!!.isNotEmpty()) {
+                        val user = response.body()!!.first()
+                        finished(user)
+                    }
+
+                }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 
 
         })
-
+    }
+    fun insert(user: User, finished: (User) -> Unit) {
+        service.insert(user ).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val user = response.body()!!
+                finished(user)
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) { }
+        })
     }
 
+    fun update(user: User, finished: ( User) -> Unit) {
+        service.update(user.id!!, user).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val user = response.body()!!
+                finished(user)
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) { }
+        })
+    }
+    
+    fun get(id: Long, finished: (user: User) -> Unit) {
+        service.getUser(id).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val user = response.body()!!
+                finished(user)
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) { }
+        })
+    }
 }
+

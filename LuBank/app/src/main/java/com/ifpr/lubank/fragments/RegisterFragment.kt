@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 
 import com.ifpr.lubank.R
+import com.ifpr.lubank.dao.UserDAO
 import com.ifpr.lubank.models.User
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
@@ -37,37 +38,38 @@ class RegisterFragment : Fragment() {
 
     private fun register(username: String, password: String, confirm: String) {
 
-//        val user = User(username, password)
-//
-//        if (user.username == "" || user.password == "") {
-//            Toast.makeText(activity, R.string.register_field_empty, Toast.LENGTH_SHORT).show()
-//
-//        } else {
-//
-//            if (user.password != confirm) {
-//                Toast.makeText(activity, R.string.register_field_password, Toast.LENGTH_SHORT)
-//                    .show()
-//            } else {
-//
-//                AppDatabase.getInstance(requireActivity().applicationContext.applicationContext)
-//                    .usersDao().insert(user)
-//
-//                val build: AlertDialog.Builder = AlertDialog.Builder(activity)
-//                build.setTitle(R.string.register_dialog_title)
-//                build.setMessage(R.string.register_dialog_msg)
-//
-//                build.setPositiveButton(R.string.ok) { dialog, which ->
-//
-//                    // register user in database
-//                    findNavController().navigate(R.id.navigateToLogin)
-//                    dialog.dismiss()
-//                }
-//
-//                val alertDialog: AlertDialog = build.create()
-//                alertDialog.show()
-//
-//            }
-//        }
+        val user = User(username, password)
+
+        if (user.username == "" || user.password == "") {
+            Toast.makeText(activity, R.string.register_field_empty, Toast.LENGTH_SHORT).show()
+
+        } else {
+
+            if (user.password != confirm) {
+                Toast.makeText(activity, R.string.register_field_password, Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+
+                val dao = UserDAO()
+                dao.insert(user){}
+
+
+                val build: AlertDialog.Builder = AlertDialog.Builder(activity)
+                build.setTitle(R.string.register_dialog_title)
+                build.setMessage(R.string.register_dialog_msg)
+
+                build.setPositiveButton(R.string.ok) { dialog, which ->
+
+                    // register user in database
+                    findNavController().navigate(R.id.navigateToLogin)
+                    dialog.dismiss()
+                }
+
+                val alertDialog: AlertDialog = build.create()
+                alertDialog.show()
+
+            }
+        }
 
 
     }

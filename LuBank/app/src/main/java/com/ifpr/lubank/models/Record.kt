@@ -14,7 +14,7 @@ data class Record(
     var kind: Boolean,
     var registredAt: String = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
 
-) {
+){
     var id: Long? = null
 
     override fun equals(other: Any?) = other is Record && this.id == other.id

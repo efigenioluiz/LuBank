@@ -1,17 +1,19 @@
 package com.ifpr.lubank.network.services
 
 import com.ifpr.lubank.models.Record
+import com.ifpr.lubank.models.User
 import retrofit2.Call
 import retrofit2.http.*
 
 interface RecordService {
 
-    @GET("records")
-    fun getAll(): Call<List<Record>>
 
-    @GET("records/{id}")
-    fun getRecord(@Path("id") id: Long): Call<Record>
+    @GET("records?")
+    fun getAll(@Query("fk_user") fk_user: Long): Call<List<Record>>
 
+
+    @GET("/records/{fk_user}&{person}")
+    fun getRecord(@Path("fk_user") fk_user: Long, @Path("person") person : String): Call<List<Record>>
 
     @POST("records")
     @Headers("Content-Type: application/json")
@@ -23,7 +25,6 @@ interface RecordService {
 
     @DELETE("records/{id}")
     fun delete(@Path("id") id: Long): Call<Void>
-
 
 
 //

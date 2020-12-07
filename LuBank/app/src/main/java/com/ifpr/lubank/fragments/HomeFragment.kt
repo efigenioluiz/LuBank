@@ -24,25 +24,34 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         var view = inflater.inflate(R.layout.fragment_home, container, false)
 
         adapter = RecordAdapter(requireContext())
 
-
+        val dao = RecordDAO()
         view.txtSearch.addTextChangedListener {
-//            if (it.toString() != "") {
-//
-////                val all = AppDatabase.getInstance(requireContext()).recordsDao()
-////                    .getRecordsByPerson("${it.toString()}%", "${it.toString()}__%",Util.user.id)
-//
-//                adapter.attData(all, requireContext(), true)
-//
-//            } else {
-//                adapter.attData(listOf<Record>(), requireContext(), false)
-//            }
+            if (it.toString() != "") {
+
+
+                Util.user.id?.let { id ->
+                    dao.get(id, it.toString()) { list ->
+
+                        if(list.isEmpty()){
+                            adapter.attData(listOf<Record>(), false)
+                        }else{
+                            adapter.attData(list, true)
+                            Log.i("logg", it.toString())
+                        }
+                    }
+                }
+
+
+            } else {
+                adapter.attData(listOf<Record>(), false)
+            }
         }
 
         view.recyclerView.adapter = adapter

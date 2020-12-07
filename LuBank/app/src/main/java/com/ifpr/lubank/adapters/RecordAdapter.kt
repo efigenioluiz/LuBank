@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ifpr.lubank.R
 import com.ifpr.lubank.dao.RecordDAO
 import com.ifpr.lubank.models.Record
+import com.ifpr.lubank.util.Util
 import kotlinx.android.synthetic.main.item_record.view.*
 import kotlinx.android.synthetic.main.item_record.view.txtDate
 import kotlinx.android.synthetic.main.item_record.view.txtPerson
@@ -29,10 +30,12 @@ class RecordAdapter(context: Context) : RecyclerView.Adapter<RecordAdapter.ViewH
     var positionEdit: Int? = null
 
     init {
-        dao.getAll { recordsAPI ->
-            records = recordsAPI.toMutableList()
-            notifyDataSetChanged()
+        Util.user.id?.let { fk_user ->
+            dao.getAll(fk_user) { recordsAPI ->
+                records = recordsAPI.toMutableList()
+                notifyDataSetChanged()
 
+            }
         }
     }
 
@@ -90,7 +93,7 @@ class RecordAdapter(context: Context) : RecyclerView.Adapter<RecordAdapter.ViewH
             itemView.imgOk.setOnClickListener {
                 record.remarks = itemView.txtNewRemarks.text.toString().toUpperCase()
 
-//                AppDatabase.getInstance(itemView.context).recordsDao().update(record)
+                dao.update(record){}
                 recordsEdit = false
                 notifyItemChanged(positionEdit!!)
 
@@ -132,15 +135,21 @@ class RecordAdapter(context: Context) : RecyclerView.Adapter<RecordAdapter.ViewH
 
     }
 
-//    fun attData(list: List<Record>, context: Context, flag: Boolean = false) {
-//        if (flag) {
-//            this.records = list
-//            notifyDataSetChanged()
-//
-//        } else {
-//            AppDatabase.getInstance(context).recordsDao().getRecordsByUser(Util.user.id)
-//                .also { this.records = it }
-//            notifyDataSetChanged()
-//        }
-//    }
+    fun attData(list: List<Record>, flag: Boolean = false) {
+        if (flag) {
+            this.records = list.toMutableList()
+            notifyDataSetChanged()
+
+        } else {
+
+            Util.user.id?.let { fk_user ->
+                dao.getAll(fk_user) { recordsAPI ->
+                    records = recordsAPI.toMutableList()
+                    notifyDataSetChanged()
+
+                }
+            }
+
+        }
+    }
 }

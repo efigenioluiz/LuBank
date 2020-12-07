@@ -20,14 +20,12 @@ interface UserService {
     @DELETE("users/{id}")
     fun delete(@Path("id") id: Long): Call<Void>
 
+    @GET("users?")
+    fun login(@Query("username") username: String, @Query("password") password: String): Call<List<User>>
+
     @PATCH("users/{id}")
     @Headers("Content-Type: application/json")
-    fun update(@Path("id") id: Long, @Body user: User): Call<User>
-
-
-    @GET("users?")
-    fun login(@Query("username") username: String, @Query("password") password: String): Call<User>
-
+    fun update(@Path("id") id: Long, @Body person: User): Call<User>
 }
     //
 //    @Query("SELECT * from users WHERE username = :username AND password = :password")

@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.ifpr.lubank.models.User
 import com.ifpr.lubank.util.Util
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*

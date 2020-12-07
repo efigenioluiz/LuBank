@@ -4,8 +4,22 @@
       "id": 1,
       "username": "luiz",
       "password": "123",
-      "balance": 0,
+      "balance": 101,
       "enabled": true
+    },
+    {
+      "balance": 0,
+      "enabled": true,
+      "password": "123",
+      "username": "camila",
+      "id": 2
+    },
+    {
+      "balance": 0,
+      "enabled": true,
+      "password": "000",
+      "username": "teste",
+      "id": 3
     }
   ],
   "records": [
@@ -26,6 +40,60 @@
       "kind": true,
       "registredAt": "1:30 2/12/2020",
       "id": 2
+    },
+    {
+      "fk_user": 1,
+      "kind": false,
+      "person": "teste",
+      "registredAt": "06/12/2020 19:29",
+      "remarks": "RRR",
+      "value": 100,
+      "id": 3
+    },
+    {
+      "fk_user": 1,
+      "kind": true,
+      "person": "luiz",
+      "registredAt": "06/12/2020 22:41",
+      "remarks": "DEPOSITO",
+      "value": 100,
+      "id": 4
+    },
+    {
+      "fk_user": 1,
+      "kind": true,
+      "person": "luiz",
+      "registredAt": "06/12/2020 22:41",
+      "remarks": "DEPOSITO",
+      "value": 200,
+      "id": 5
+    },
+    {
+      "fk_user": 1,
+      "kind": false,
+      "person": "100",
+      "registredAt": "06/12/2020 22:43",
+      "remarks": "",
+      "value": 400,
+      "id": 6
+    },
+    {
+      "fk_user": 1,
+      "kind": true,
+      "person": "ff",
+      "registredAt": "06/12/2020 22:44",
+      "remarks": "",
+      "value": 1,
+      "id": 7
+    },
+    {
+      "fk_user": 1,
+      "kind": true,
+      "person": "luiz",
+      "registredAt": "06/12/2020 23:29",
+      "remarks": "",
+      "value": 100,
+      "id": 8
     }
   ]
 }
